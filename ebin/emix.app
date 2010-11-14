@@ -1,7 +1,7 @@
 {application, emix,
 	[
 		{description, "functions for interacting with mixpanel"},
-		{vsn, "1"},
+		{vsn, "0.1"},
 		{modules, [
 			emix
 		]},
