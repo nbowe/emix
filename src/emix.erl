@@ -45,7 +45,7 @@ track_async(Event, Props) ->
 
 track_funnel(Funnel, Step, Goal, Props) ->
 	FunnelProps = [{"funnel",Funnel},{"step",Step},{"goal",Goal}],
-	FinalProps = upropmerge(FunnelProps,Props),
+	FinalProps = merge_properties(FunnelProps,Props),
 	track("mp_funnel", FinalProps).
 
 % track_funnel_async
@@ -81,13 +81,12 @@ request(Method, Host, URI, DataProplist) ->
 
 build_request(Method, Host, URI, DataProplist) ->
 	URIQS = [URI, "?", mochiweb_util:urlencode(DataProplist)],
-	Request = [Method, " ", URIQS, <<" HTTP/1.0\r\n">>,
+	[Method, " ", URIQS, <<" HTTP/1.0\r\n">>,
 		<<"Content-Type: application/json\r\n">>,
 		<<"User-Agent: emix\r\n">>,
 		<<"Host: ">>, Host, <<"\r\n">>,
 		<<"Accept: */*\r\n">>,
-		<<"\r\n">>],
-	erlang:iolist_to_binary(Request).
+		<<"\r\n">>].
 
 % standard http 1.0 recv loop
 recv(Socket, Acc) ->
@@ -122,6 +121,6 @@ decode_headers(Data, Headers) ->
 % merge 2 property lists. 
 % if an item appears in both the one in List1 is taken.
 % if an item appears more than once in a list only 1 value is taken.
-upropmerge(List1,List2) ->
+merge_properties(List1,List2) ->
 	lists:ukeymerge(1, lists:ukeysort(1,List1), lists:ukeysort(1,List2)).
 	

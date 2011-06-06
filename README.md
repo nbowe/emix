@@ -35,11 +35,7 @@ For example I use something like the following:
 				{"token", ?TOKEN},
 				{"time", emix:unixtime() }
 			],
-			% ensure we use the CommonProperties over any passed in.
-			AllProperties = lists:ukeymerge(1,
-				lists:ukeysort(1, CommonProperties),
-				lists:ukeysort(1, Properties)
-			),
+			AllProperties = merge_properties(CommonProperties, Properties),
 			Logged = emix:track(EventName, AllProperties),
 			case Logged of
 				false -> estat:update(mixpanel_failed_events);
@@ -47,6 +43,5 @@ For example I use something like the following:
 			end
 		end),
 		ok.
-
 
 

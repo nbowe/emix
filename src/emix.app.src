@@ -2,13 +2,8 @@
 	[
 		{description, "functions for interacting with mixpanel"},
 		{vsn, "0.1"},
-		{modules, [
-			emix
-		]},
+		{modules, []},
 		{registered, []},
-		{applications, [
-			kernel,
-			stdlib
-		]},
+		{applications, [kernel, stdlib]},
 		{env, []}
 	]}.
